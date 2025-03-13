@@ -23,12 +23,14 @@ public class Postfix {
             System.out.println(tokens + "obj");
             System.out.println(nextObj);
             if (nextObj instanceof Double) {
+                tokens.remove(nextObj);
                 tokens.add(nextObj);
-                tokensIterator = tokens.iterator();
+                System.out.println(tokens);
+                //tokensIterator = tokens.iterator();
             } else {
                 oper = (Character) nextObj;
-                num1 = (Double) tokens.pollLast();
                 num2 = (Double) tokens.pollLast();
+                num1 = (Double) tokens.pollLast();
                 if (oper == '+') {
                     tokens.remove('+');
                     // num1 = (Double) tokens.poll();
