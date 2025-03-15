@@ -7,8 +7,6 @@ public class Postfix {
     
     
     public static Double postfix(ArrayDeque<Object> tokens) {
-        int i; 
-        i = 1;
         Object nextObj;
         Double ans;
         Character oper;
