@@ -10,10 +10,12 @@ public class Infix {
         ArrayDeque<Object> outputQueue = new ArrayDeque<>(); //numbers added here
         ArrayDeque<Object> stack = new ArrayDeque<>(); //operators added here
         Object nextObj;
+        Object prevObj;
         Character nextObjChar;
         Object movingOper;
         Character movingOperChar;
         Character existingObj;
+        Character firstChar;
         int i;
         int j;
         Double finalAns;
@@ -22,8 +24,19 @@ public class Infix {
         precedence.put('-', 2);
         precedence.put('*', 3);
         precedence.put('/', 3);
+        precedence.put('^', 4);
         Iterator<Object> tokensIterator = tokens.iterator();
-        //Iterator<Object> stackIterator = stack.iterator();
+
+        if (tokens.contains(')')) {
+            if (!tokens.contains('(')) {
+                throw new IllegalArgumentException("Incorrect use of parenthesis");
+            }
+        }
+        if (tokens.contains('(')) {
+            if (!tokens.contains(')')) {
+                throw new IllegalArgumentException("Incorrect use of parenthesis");
+            }
+        }
         while (tokensIterator.hasNext()) {
             nextObj = tokensIterator.next();
             tokens.pop();
@@ -32,15 +45,11 @@ public class Infix {
             System.out.println(outputQueue + "output queue infix");
             System.out.println(stack + " stack INFIX");
             if (nextObj instanceof Double) {
-                //tokens.remove(nextObj);
-                //nextObjChar = (Character) nextObj;
                 outputQueue.add(nextObj);
-                //tokens.remove(nextObj);
-                //System.out.println(tokens + " tokens INFIX");
-                //System.out.println(outputQueue + "output queue infix");
                 tokensIterator = tokens.iterator();
+                prevObj = nextObj;
             } else {
-                System.out.println("stack size = " + stack.size());
+                System.out.println("stack size = " + stack.size() + "infix");
                 nextObjChar = (Character) nextObj;
                 if (nextObjChar == '(') {
                     stack.push(nextObj);
@@ -57,10 +66,10 @@ public class Infix {
                                 System.out.println("hi5");
                                 outputQueue.add(movingOper);
                                 System.out.println("hi6");
-                                //tokens.remove(movingOper);
                             } else {
                                 movingOper = stack.pop();
                                 System.out.println("hi7");
+                                break;
                             }
                         }
                     } else {
@@ -70,15 +79,22 @@ public class Infix {
                 } else if (stack.size()>=1) {
                     existingObj = (Character) stack.getFirst();
                     if (existingObj == '(') {
-                        outputQueue.add(nextObj);
+                        stack.push(nextObj);
                     } else if (precedence.get(nextObjChar) <= precedence.get(stack.getFirst())) {
-                        System.out.println("adding" + precedence.get(nextObjChar) + " exisitng " + precedence.get(stack.getFirst()));
-                        System.out.println("stack size = " + stack.size());
+                        System.out.println("adding" + precedence.get(nextObjChar) + " exisitng " + precedence.get(stack.getFirst()) + "infix");
+                        System.out.println("stack size = " + stack.size() + "infix");
                         for (i=0; i<=stack.size(); i++) {
-                            movingOper = stack.pop();
-                            outputQueue.add(movingOper);
-                            //tokens.remove(movingOper);
-                            //System.out.println(outputQueue + "output queue after stacsize1");
+                            firstChar = (Character) stack.getFirst();
+                            if (firstChar == '(') {
+                                break;
+                            } else if (precedence.get(nextObjChar) <= precedence.get(stack.getFirst())) {
+                                System.out.println(stack.size());
+                                System.out.println("hiiiiii" +i);
+                                movingOper = stack.pop();
+                                System.out.println("hiiiiii" +i);
+                                outputQueue.add(movingOper);
+                                System.out.println("hiiiiii"+ i);
+                            }
                         }
                         stack.push(nextObj);
                     } else {
@@ -86,16 +102,15 @@ public class Infix {
                     }
                 } else {
                     stack.add(nextObj);
-                    //tokens.remove(nextObj);
                 }
             }
         }
         while (!stack.isEmpty()) {
             nextObj = stack.pop();
-            //nextObjChar = (Character) nextObj;
             outputQueue.add(nextObj);
         }
-
+        outputQueue.remove('(');
+        outputQueue.remove(')');
         System.out.println(outputQueue + " outputqueue FINAL");
         finalAns = Postfix.postfix(outputQueue);
         System.out.println( " returning:  " + finalAns);
