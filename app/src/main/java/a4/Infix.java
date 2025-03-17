@@ -26,7 +26,7 @@ public class Infix {
         precedence.put('/', 3);
         precedence.put('^', 4);
         Iterator<Object> tokensIterator = tokens.iterator();
-
+        ArrayDeque<Object> originalTokens = tokens;
         if (tokens.contains(')')) {
             if (!tokens.contains('(')) {
                 throw new IllegalArgumentException("Incorrect use of parenthesis");
@@ -35,6 +35,11 @@ public class Infix {
         if (tokens.contains('(')) {
             if (!tokens.contains(')')) {
                 throw new IllegalArgumentException("Incorrect use of parenthesis");
+            }
+        }
+        if (tokens.size() <=2) {
+            if (tokens.getFirst() instanceof Character) {
+                throw new IllegalArgumentException("Please enter valid expression");
             }
         }
         while (tokensIterator.hasNext()) {
@@ -72,14 +77,18 @@ public class Infix {
                                 break;
                             }
                         }
-                    } else {
-                        System.out.println("Error: mismatched parenthesis.");
+                    } 
+                    else {
+                        throw new IllegalArgumentException("Incorrect use of parenthesis");
                     }
                     
                 } else if (stack.size()>=1) {
                     existingObj = (Character) stack.getFirst();
                     if (existingObj == '(') {
                         stack.push(nextObj);
+                        // if (!tokens.contains(')')) {
+                        //     throw new IllegalArgumentException("Incorrect use of parenthesis");
+                        // }
                     } else if (precedence.get(nextObjChar) <= precedence.get(stack.getFirst())) {
                         System.out.println("adding" + precedence.get(nextObjChar) + " exisitng " + precedence.get(stack.getFirst()) + "infix");
                         System.out.println("stack size = " + stack.size() + "infix");
@@ -112,6 +121,9 @@ public class Infix {
         outputQueue.remove('(');
         outputQueue.remove(')');
         System.out.println(outputQueue + " outputqueue FINAL");
+        if (outputQueue == originalTokens) {
+            throw new IllegalArgumentException("Please input a standard expression, not in postfix format.");
+        }
         finalAns = Postfix.postfix(outputQueue);
         System.out.println( " returning:  " + finalAns);
         return finalAns;

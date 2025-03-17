@@ -15,6 +15,17 @@ public class Postfix {
         Double num2;
         ans = 2.0;
         Iterator<Object> tokensIterator = tokens.iterator();
+        if (tokens.size() <=2) {
+            if (tokens.getFirst() instanceof Character) {
+                throw new IllegalArgumentException("Please enter valid expression");
+            }
+        }
+        if (tokens.contains(')') || tokens.contains('(')) {
+            throw new IllegalArgumentException("Please put expressions with parenthesis though Infix first.");
+        }
+        if (tokens.contains('0')) {
+            throw new IllegalArgumentException("Please enter expressions without 0.");
+        }
         while (tokensIterator.hasNext()) {
             nextObj = tokensIterator.next();
             if (!(nextObj instanceof Double) && !(nextObj instanceof Character)) {
@@ -98,6 +109,9 @@ public class Postfix {
                     }
                 }
             }
+        }
+        if (tokens.size() > 1) {
+            throw new IllegalArgumentException("Please use correct number of operators.");
         }
         ans = (Double) tokens.poll();
         System.out.println("ANSWER " +ans);

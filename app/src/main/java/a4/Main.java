@@ -12,7 +12,7 @@ class Main {
     //Infix.infixToPostfix(Tokenizer.readTokens("(3+1)^(5-3)"));
     //Infix.infixToPostfix(Tokenizer.readTokens("6+3^3-17"));
     //Infix.infixToPostfix(Tokenizer.readTokens("(20*0.2)^(10/5)"));
-    Infix.infixToPostfix(Tokenizer.readTokens("4^16^0.25"));
+    Infix.infixToPostfix(Tokenizer.readTokens("2 5 +"));
     //Infix.infixToPostfix(Tokenizer.readTokens("40*6^3/540"));
     //Infix.infixToPostfix(Tokenizer.readTokens("(((((1+2)*3)-1)/4)+5)"));
     System.out.println("Calls from the command line:");
