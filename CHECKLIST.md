@@ -21,7 +21,7 @@ YES 2 pts: Processes operators by popping & combining numbers
 
 YES 2 pts: Produces correct answer to any valid postfix expression
 
-_____ 1 pts: Throws an exception with an informative error message in case of malformed expressions
+YES 1 pts: Throws an exception with an informative error message in case of malformed expressions
 
 
 Calculate.java:
@@ -40,11 +40,11 @@ YES 1 pt: Properly handles operators with different associative properties (e.g.
 
 YES 4 pts: Program compiles without errors or warnings
 
-_____ 2 pts: Executes fully & consistently without crashing (exception/freeze)
+YES 2 pts: Executes fully & consistently without crashing (exception/freeze)
 
-_____ 2 pt: Complies with style guidelines (missing items 1 pt each):
+YES 2 pt: Complies with style guidelines (missing items 1 pt each):
 
-      _____ Classes & class members all have Javadoc header comments
+      YES Classes & class members all have Javadoc header comments
 
       YES Clear and consistent indentation of bracketed sections
 
@@ -52,8 +52,8 @@ _____ 2 pt: Complies with style guidelines (missing items 1 pt each):
 
       YES Methods & variables all have clear and accurate names
 
-      _____ Methods avoid confusing side effects
+      YES Methods avoid confusing side effects
 
-_____ 1 pt: All required files included with submission (including completed checklist file)
+YES 1 pt: All required files included with submission (including completed checklist file)
 
 _____ 1 pt: readme.md contains reflection on the assignment
