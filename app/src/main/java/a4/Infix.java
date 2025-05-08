@@ -21,8 +21,6 @@ public class Infix {
         Character movingOperChar; //converting movingOper to a character
         Character existingObj; //existing character at top of stack
         Character firstChar; //stop of stack
-        int i; //for loop
-        int j; //for loop
         Double finalAns; //final answer returned
         Hashtable<Object, Integer> precedence = new Hashtable<>(); //to define precesdence for characters
         precedence.put('+', 2);
@@ -60,7 +58,7 @@ public class Infix {
                     stack.push(nextObj);
                 } else if (nextObjChar == ')') {
                     if (stack.contains('(')) {
-                        for (j=0; j<stack.size(); j++) {
+                        for (int j=0; j<stack.size(); j++) {
                             movingOperChar = (Character) stack.peekFirst();
                             if (movingOperChar != '(') {
                                 movingOper = stack.pop();
@@ -80,7 +78,7 @@ public class Infix {
                     if (existingObj == '(') {
                         stack.push(nextObj);
                     } else if (precedence.get(nextObjChar) <= precedence.get(stack.getFirst())) {
-                        for (i=0; i<=stack.size(); i++) {
+                        for (int i=0; i<=stack.size(); i++) {
                             firstChar = (Character) stack.getFirst();
                             if (firstChar == '(') {
                                 break;
